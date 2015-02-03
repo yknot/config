@@ -1,0 +1,28 @@
+# Install:
+
+###########
+# Everywhere
+###########
+screen
+htop
+autojump
+ipython
+pip
+emacs24
+ack
+zsh
+oh my zsh
+dropbox
+
+###########
+# Ubuntu specific
+###########
+# disable tap to click
+
+###########
+# Server specific
+###########
+tmux    # set c-z 
+
+
+
