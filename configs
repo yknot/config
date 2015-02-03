@@ -18,6 +18,13 @@ dropbox
 # Ubuntu specific
 ###########
 # disable tap to click
+compizconfig-settings-manager
+compiz-plugins
+		# ccsm to open
+		# ubuntu unity plugin disable alt tab
+		# window management
+		# static application switcher
+
 
 ###########
 # Server specific
