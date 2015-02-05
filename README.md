@@ -12,10 +12,10 @@ Install:
 * autojump
 * ipython
 * pip
-* emacs24
+* emacs24 *copy .emacs and .emacs.d/*
 * ack
-* zsh
-* oh-my-zsh
+* zsh *copy .zshrc*
+* oh-my-zsh *copy theme into theme folder*
 * dropbox
 
 **Ubuntu**
