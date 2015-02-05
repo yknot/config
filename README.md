@@ -12,10 +12,13 @@ Install:
 * autojump
 * ipython
 * pip
-* emacs24 *copy .emacs and .emacs.d/*
+* emacs24 
+	* *copy .emacs and .emacs.d/*
 * ack
-* zsh *copy .zshrc*
-* oh-my-zsh *copy theme into theme folder*
+* zsh 
+	* *copy .zshrc*
+* oh-my-zsh 
+	* *copy theme into theme folder*
 * dropbox
 
 **Ubuntu**
@@ -31,7 +34,8 @@ Install:
 
 **Server**
 
-* tmux    *set c-z*
+* tmux    
+	* *set c-z*
 
 
 
