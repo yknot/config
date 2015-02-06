@@ -11,10 +11,12 @@ Install:
 * htop
 * autojump
 * ipython
-* pip
+* python-pip
+* python-dev
+* build-essential
 * emacs24 
 	* *copy .emacs and .emacs.d/*
-* ack
+* ack-grep
 * zsh 
 	* *copy .zshrc*
 * oh-my-zsh 
