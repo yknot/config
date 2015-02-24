@@ -83,3 +83,6 @@ else
 
 	autoload -U compinit && compinit -u
 
+
+
+eval `dircolors ~/.dircolors`

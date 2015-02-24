@@ -22,6 +22,8 @@ Install:
 * oh-my-zsh 
 	* *copy theme into theme folder*
 * dropbox
+* solarized theme
+    * *move dircolors into home*
 
 **Ubuntu**
 * *disable tap to click*
