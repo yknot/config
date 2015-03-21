@@ -44,3 +44,5 @@
 (show-paren-mode 1)
 
 
+;; move autosaves to a default directory in the home folder
+(setq backup-directory-alist `(("." . "~/.saves")))
