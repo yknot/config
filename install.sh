@@ -91,6 +91,15 @@ fi
 
 
 
+# sublime text 3
+if ask "Install Sublime Text 3?" N; then
+	curl -L -O http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3065_amd64.deb
+	dpkg -i sublime-text_build-3065_amd64.deb
+	
+	rm sublime-text_build-3065_amd64.deb
+else
+	echo "Skipping..."
+fi
 
 
 
