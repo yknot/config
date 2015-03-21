@@ -34,9 +34,6 @@ ask() {
     done
 }
 
-echo "Downloading config..."
-git clone https://github.com/yknot/config.git
-cd config
  
 
 # programs
@@ -91,11 +88,6 @@ if ask "Overwrite dotfiles?" N; then
 else
 	echo "Skipping..."
 fi
-
-
-
-
-
 
 
 
