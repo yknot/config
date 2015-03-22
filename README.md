@@ -1,6 +1,8 @@
 Configurations for different systems
 ======
 
+[Config Blog Post](http://yknot.github.io/2015/03/21/config.html)
+
 
 Install:
 ----
