@@ -34,7 +34,17 @@ ask() {
     done
 }
 
- 
+
+user=$(whoami)
+
+if [ $user = "root" ]; then
+	echo
+	else
+	echo "Not root. Need to use sudo."
+	exit
+fi
+
+
 
 # programs
 if ask "Install Programs?" N; then
