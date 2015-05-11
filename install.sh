@@ -60,10 +60,8 @@ while getopts ":pdsfth" opt; do
 		p)
 			# programs
 			if  ask "Install Programs?" N; then
-				while read p; do
-					echo "Installing $p"
-					apt-get install $p
-				done <programs
+				# grep does invers regex on lines with all whitespace or comments
+				apt-get install -m $(grep -vE "^\s*#" programs | tr "\n" " ")
 				# oh my zsh
 				curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 				# theme file
