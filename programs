@@ -1,0 +1,10 @@
+screen
+htop
+autojump
+ipython
+python-pip
+python-dev
+build-essential
+emacs24
+ack-grep
+zsh
