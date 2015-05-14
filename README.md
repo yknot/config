@@ -28,6 +28,7 @@ Install:
     * *move dircolors into home*
 
 **Ubuntu**
+
 * *disable tap to click*
 * compizconfig-settings-manager
 * compiz-plugins
