@@ -61,7 +61,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
    export EDITOR='nano'
 else
-   export EDITOR='emacsGUI'
+   export EDITOR='emacs'
  fi
 
 # Compilation flags
@@ -81,11 +81,8 @@ else
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 #[[ -s /home/andrew/.autojump/etc/profile.d/autojump.sh ]] && source /home/andrew/.autojump/etc/profile.d/autojump.sh
 
-	autoload -U compinit && compinit -u
+autoload -U compinit && compinit -u
 
-
-
-#eval `dircolors ~/.dircolors`
 
 
 source "/usr/local/bin/virtualenvwrapper.sh"
@@ -94,13 +91,30 @@ source "/usr/local/bin/virtualenvwrapper.sh"
 export PATH="/usr/local/heroku/bin:$PATH"
 
 
-### ad postgress paths
+### add postgress paths
 export PATH="/Applications/Postgres.app/Contents/Versions/9.4/bin:/opt/local/bin:/opt/local/lib/postgresql93/bin:$PATH"
 
+## add latex to path
+export PATH="/Library/TeX/texbin:$PATH"
 
-# alias gdb-apple to gdb
-alias gdb='gdb-apple'
+## add custom scripts path
+export PATH="/Users/andrewyale/bin:$PATH"
+
+## add go
+export PATH="/usr/local/go/bin:$PATH"
 
 
 # alias note.sh (note manager) to n
 alias n='/Users/andrewyale/Dropbox/projects/note/note.sh'
+export NOTE_CONFIG='/Users/andrewyale/Dropbox/projects/note'
+
+
+# add passpie
+if which passpie > /dev/null; then eval "$(passpie complete zsh)"; fi
+
+
+alias emacs='open -a Emacs'
+
+
+# go path
+export GOPATH=$HOME/go/work	   
