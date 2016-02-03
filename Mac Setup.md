@@ -3,7 +3,6 @@
 A list of apps I installed:
 
 **_Coding_**
-- Android Studio
 - Atom
 - Emacs
 - GitHub
@@ -25,23 +24,20 @@ A list of apps I installed:
   - simplejson
   - numpy
   - scipy
-
 - ipython
 
 **_Productivity/Misc_**
-- Disk Inventory X
+- Daisy Disk
 - Dropbox
 - Filezilla
 - Google Chrome
 - Helium
 - Microsoft Office Programs
-- nvALT
-- Wunderlist
+- Simplenote
 
 **_Media_**
 - VLC
 - Spotify
-- Plug
 
 ## [Script](https://gist.github.com/yknot/c5d2c3094f15c0ecea5d)
 In this gist is a super modified version of a mac setup script written by [Brandon Brown](https://gist.github.com/brandonb927/3195465). The original script does a lot of modifications which I thought were unnecessary but might have to refer back to in the future.

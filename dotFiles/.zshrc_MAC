@@ -113,8 +113,11 @@ export NOTE_CONFIG='/Users/andrewyale/Dropbox/projects/note'
 if which passpie > /dev/null; then eval "$(passpie complete zsh)"; fi
 
 
-alias emacs='open -a Emacs'
+alias emacs='open -n -a Emacs'
+alias emacsnw='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 
+# drmemory
+alias drmemory='/Users/andrewyale/DrMemory-MacOS-1.9.0-4/bin/drmemory -brief --'
 
 # go path
 export GOPATH=$HOME/go/work	   
