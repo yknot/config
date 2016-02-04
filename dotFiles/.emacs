@@ -16,6 +16,8 @@
 ;; matching paren mode
 (show-paren-mode 1)
 
+;; auto reload for pdfs
+(add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
 ;; stops the second window from popping up
 (setq ns-pop-up-frames nil)
