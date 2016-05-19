@@ -49,7 +49,7 @@ plugins=(git git-flow)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -113,11 +113,110 @@ export NOTE_CONFIG='/Users/andrewyale/Dropbox/projects/note'
 if which passpie > /dev/null; then eval "$(passpie complete zsh)"; fi
 
 
-alias emacs='open -n -a Emacs'
-alias emacsnw='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+alias emacsw='open -n -a Emacs'
+alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
 
 # drmemory
 alias drmemory='/Users/andrewyale/DrMemory-MacOS-1.9.0-4/bin/drmemory -brief --'
 
-# go path
-export GOPATH=$HOME/go/work	   
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+
+
+
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup'
+alias bouncWifi='networksetup -setairportpower en0 off; networksetup -setairportpower en0 on'
+alias matlab='/Applications/MATLAB_R2015a.app/bin/matlab -nodesktop -nosplash'
+
+# `a` with no arguments opens the current directory in Atom Editor, otherwise
+# opens the given location
+function a() {
+	if [ $# -eq 0 ]; then
+		atom .;
+	else
+		atom "$@";
+	fi;
+}
+
+function tre() {
+	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+}
+
+# Simple calculator
+function calc() {
+	local result="";
+	result="$(printf "scale=10;$*\n" | bc --mathlib | tr -d '\\\n')";
+	#                       └─ default (when `--mathlib` is used) is 20
+	#
+	if [[ "$result" == *.* ]]; then
+		# improve the output for decimal numbers
+		printf "$result" |
+		sed -e 's/^\./0./'        `# add "0" for cases like ".5"` \
+		    -e 's/^-\./-0./'      `# add "0" for cases like "-.5"`\
+		    -e 's/0*$//;s/\.$//';  # remove trailing zeros
+	else
+		printf "$result";
+	fi;
+	printf "\n";
+}
+
+# Create a new directory and enter it
+function mkd() {
+	mkdir -p "$@" && cd "$_";
+}
+
+
+# Change working directory to the top-most Finder window location
+function cdf() { # short for `cdfinder`
+	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
+}
+
+
+# Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
+function targz() {
+	local tmpFile="${@%/}.tar";
+	tar -cvf "${tmpFile}" --exclude=".DS_Store" "${@}" || return 1;
+
+	size=$(
+		stat -f"%z" "${tmpFile}" 2> /dev/null; # OS X `stat`
+		stat -c"%s" "${tmpFile}" 2> /dev/null # GNU `stat`
+	);
+
+	local cmd="";
+	if (( size < 52428800 )) && hash zopfli 2> /dev/null; then
+		# the .tar file is smaller than 50 MB and Zopfli is available; use it
+		cmd="zopfli";
+	else
+		if hash pigz 2> /dev/null; then
+			cmd="pigz";
+		else
+			cmd="gzip";
+		fi;
+	fi;
+
+	echo "Compressing .tar using \`${cmd}\`…";
+	"${cmd}" -v "${tmpFile}" || return 1;
+	[ -f "${tmpFile}" ] && rm "${tmpFile}";
+	echo "${tmpFile}.gz created successfully.";
+}
+
+# Determine size of a file or total size of a directory
+function fs() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh;
+	else
+		local arg=-sh;
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@";
+	else
+		du $arg .[^.]* ./*;
+	fi;
+}
+
+
