@@ -114,7 +114,8 @@ if which passpie > /dev/null; then eval "$(passpie complete zsh)"; fi
 
 
 alias emacsw='open -n -a Emacs'
-alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+alias emacs='/usr/local/bin/emacs -nw'
+alias spacemacs='HOME=~/.spacemacs open -n -a Emacs'
 
 # drmemory
 alias drmemory='/Users/andrewyale/DrMemory-MacOS-1.9.0-4/bin/drmemory -brief --'
@@ -127,21 +128,9 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup'
-alias matlab='/Applications/MATLAB_R2015a.app/bin/matlab -nodesktop -nosplash'
-
-# `a` with no arguments opens the current directory in Atom Editor, otherwise
-# opens the given location
-function a() {
-	if [ $# -eq 0 ]; then
-		atom .;
-	else
-		atom "$@";
-	fi;
-}
-
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
+alias matlab='/Applications/MATLAB_R2017b.app/bin/matlab -nodesktop -nosplash'
+alias clean_ds_store='find . -name ".DS_Store" -type f -delete'
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
 function targz() {
@@ -185,4 +174,8 @@ function fs() {
 	fi;
 }
 
+# do tree but with local gitignore file
+function gtree() {
+    tree --prune -I $(cat .gitignore | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|")
+}
 
