@@ -1,14 +1,32 @@
 ;; suppress startup screen
 (setq inhibit-startup-message t)
 
+;; turn tabs off
+(setq-default indent-tabs-mode nil)
+
+;; set python3
+(setq elpy-rpc-python-command "python3")
+(setq python-shell-interpreter "python3")
+
+;; load theme to be used in terminal
+(load-theme 'wombat)
 
 ;; gui settings
-(if (display-graphic-p)
-	(progn
-	  (tool-bar-mode -1) ;; turn toolbar off
-	  (scroll-bar-mode -1)   ;; no scroll bar
-	  (set-frame-height (selected-frame) 65) ;; window size
-	  (set-frame-width (selected-frame) 95)))
+(if (display-graphic-p)  
+    (progn
+      (tool-bar-mode -1) ;; turn toolbar off
+      (scroll-bar-mode -1)   ;; no scroll bar
+      (set-frame-height (selected-frame) 65) ;; window size
+      (set-frame-width (selected-frame) 95)
+      ;; theme
+      (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-material-theme/")
+      (load-theme 'material t)
+      (set-frame-font "Roboto Mono for Powerline-12" nil t)  
+      (add-to-list 'load-path "~/.emacs.d/powerline/")
+      (require 'powerline)
+      (powerline-default-theme)
+      ))
+
 
 ;; Auto Revert mode
 (global-auto-revert-mode 1)
@@ -32,10 +50,8 @@
 (setq ispell-program-name "aspell")
 
 ;; Auctex config
-(setenv "PATH" (concat "/usr/texbin:/usr/local/bin:" (getenv "PATH")))
-(setq exec-path (append '("/usr/texbin" "/usr/local/bin") exec-path))
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
+(setenv "PATH" (concat "/Library/TeX/texbin;/usr/local/bin:" (getenv "PATH")))
+(setq exec-path (append '("/Library/TeX/texbin" "/usr/local/bin") exec-path))
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
@@ -63,15 +79,6 @@
 (global-set-key "\C-x\C-u" 'shell) ;; open up shell in buffer
 
 
-
-;; autocomplete
-
-
-;; MELPA
-(require 'package)
-(add-to-list 'package-archives
-	                  '("melpa" . "http://melpa.org/packages/"))
-(package-initialize)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -119,19 +126,97 @@
      ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document")
      ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files")
      ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files")
-     ("Other" "" TeX-run-command t t :help "Run an arbitrary command")))))
+     ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
+ '(custom-safe-themes
+   (quote
+    ("98cc377af705c0f2133bb6d340bf0becd08944a588804ee655809da5d8140de6" default)))
+ '(package-selected-packages
+   (quote
+    (deft zygospore helm-gtags helm yasnippet ws-butler volatile-highlights use-package undo-tree iedit dtrt-indent counsel-projectile company clean-aindent-mode anzu))))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(default ((t (:inherit nil :stipple nil :background "White" :foreground "Black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "consolas")))))
+
+
+(require 'package)
+(load "package")
+(package-initialize)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(package-initialize)
+
+(setq package-archive-enable-alist '(("melpa" magit)))
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+
+
+(defun activate-python()
+(message "Loading Python mode")
+;(require 'epy-setup)      ;; It will setup other loads, it is required!
+;(require 'epy-python)     ;; If you want the python facilities [optional]
+;(require 'epy-completion) ;; If you want the autocompletion settings [optional]
+;(require 'epy-editing)    ;; For configurations related to editing [optional]
+;(require 'epy-bindings)   ;; For my suggested keybindings [optional]
+;(require 'epy-nose)       ;; For nose integration
+
+;(require 'flymake-python-pyflakes)
+;(add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
+
+;(epy-setup-ipython)
+(global-hl-line-mode t) ;; To enable
+(require 'highlight-indentation)
+(add-hook 'python-mode-hook 'highlight-indentation)
+;(add-hook 'python-mode-hook 'jedi:setup)
+;(setq jedi:complete-on-dot t)                 ; optional
+
+(elpy-enable)
+(setq elpy-rpc-backend "jedi")  
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
+)
+
+
+(activate-python )
+(setq global-linum-mode t)
+
+
+
+(add-to-list 'load-path "~/.emacs.d/deft/")
+(require 'deft)
+(setq deft-directory "~/Dropbox/Apps/Notes/")
+(global-set-key [f6] 'deft)
+
+
+
+;; (add-to-list 'load-path "~/.emacs.d/ESS/lisp/")
+;; (load "ess-site")
+
+
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot t)                 ; optional
+;; (add-hook 'python-mode-hook 'flycheck-mode)
+;; (add-hook 'elpy-mode-hook 'git-gutter-mode)
+
+
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "White" :foreground "Black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "consolas")))))
-
-
-
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)                 ; optional
-(add-hook 'python-mode-hook 'flycheck-mode)
-(add-hook 'python-mode-hook 'git-gutter-mode)
-
-
+ )

@@ -102,6 +102,8 @@ export PATH="/Users/andrewyale/bin:$PATH"
 
 ## add go
 export PATH="/usr/local/go/bin:$PATH"
+export GOPATH=/Users/andrewyale/go
+export PATH=$GOPATH/bin:$PATH
 
 
 # alias note.sh (note manager) to n
@@ -116,6 +118,8 @@ if which passpie > /dev/null; then eval "$(passpie complete zsh)"; fi
 alias emacsw='open -n -a Emacs'
 alias emacs='/usr/local/bin/emacs -nw'
 alias spacemacs='HOME=~/.spacemacs open -n -a Emacs'
+alias deft='open -n -a Emacs --args -q --load "~/.deft"'
+alias deftnw='/usr/local/bin/emacs -nw -q --load "~/.deft"'
 
 # drmemory
 alias drmemory='/Users/andrewyale/DrMemory-MacOS-1.9.0-4/bin/drmemory -brief --'
@@ -124,13 +128,11 @@ alias drmemory='/Users/andrewyale/DrMemory-MacOS-1.9.0-4/bin/drmemory -brief --'
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 
-
-
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup'
 alias matlab='/Applications/MATLAB_R2017b.app/bin/matlab -nodesktop -nosplash'
-alias clean_ds_store='find . -name ".DS_Store" -type f -delete'
+alias demacify='find . -name ".DS_Store" -type f -delete'
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
 function targz() {
@@ -179,3 +181,19 @@ function gtree() {
     tree --prune -I $(cat .gitignore | egrep -v "^#.*$|^[[:space:]]*$" | tr "\\n" "|")
 }
 
+
+# Query commands
+alias q="ls | grep --color -i"
+alias Q="ls | grep --color"
+alias qq="find . -not -type d | xargs grep --color -i"
+alias QQ="find . -not -type d | xargs grep --color"
+
+alias h='< ~/.zhistory grep -i'
+alias H='< ~/.zhistory grep'
+
+alias g='grep -i'
+alias G='grep'
+
+
+
+eval "$(pyenv init -)"

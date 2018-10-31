@@ -1,0 +1,60 @@
+;; suppress startup screen
+(setq inhibit-startup-message t)
+
+;; turn tabs to spaces and to 2
+(setq-default indent-tabs-mode nil)
+
+;; gui settings
+(if (display-graphic-p)  
+    (progn
+      (tool-bar-mode -1) ;; turn toolbar off
+      (scroll-bar-mode -1)   ;; no scroll bar
+      (set-frame-height (selected-frame) 50) ;; window size
+      (set-frame-width (selected-frame) 120)
+      ;; theme
+      (set-frame-font "IBM Plex Mono Medium" nil t)
+      (add-to-list 'load-path "~/.emacs.d/powerline/")
+      (require 'powerline)
+      (powerline-default-theme)
+      (setq initial-frame-alist '((left . 400) (top . 100)))
+      ))
+
+;; deft init
+(add-to-list 'load-path "~/.emacs.d/deft/")
+(require 'deft)
+(setq deft-directory "~/Dropbox/Apps/Notes/")
+(global-set-key [f6] 'deft)
+(setq deft-use-filename-as-title t)
+(setq deft-recursive t)
+(setq deft-recursive-ignore-dir-regexp "Archive")
+(setq deft-recursive-ignore-dir-regexp
+      (concat "\\(?:"
+              "\\."
+              "\\|\\.\\."
+              "\\|Archive"
+              "\\)$"))
+
+(add-to-list 'load-path "~/.emacs.d/markdown/")
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+(setq markdown-list-indent-width 4)
+
+;; move autosaves to a default directory in the home folder
+(setq backup-directory-alist `(("." . "~/.saves")))
+
+(deft)
+
+(load-theme 'leuven)
+
+;; remove status bar
+(setq-default mode-line-format nil)
+
+;; show window dividers
+(setq window-divider-default-places t)
+(window-divider-mode)
+
+
+
