@@ -21,7 +21,8 @@
       ;; theme
       (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-material-theme/")
       (load-theme 'material t)
-      (set-frame-font "Roboto Mono for Powerline-12" nil t)  
+      ;; (set-frame-font "Roboto Mono for Powerline-12" nil t)
+      (set-frame-font "IBM Plex Mono-12" nil t)
       (add-to-list 'load-path "~/.emacs.d/powerline/")
       (require 'powerline)
       (powerline-default-theme)
@@ -46,8 +47,8 @@
 ;; stops the second window from popping up
 (setq ns-pop-up-frames nil)
 
-;; set aspell instead of ispell
-(setq ispell-program-name "aspell")
+;; set hunspell instead of ispell
+(setq ispell-program-name "hunspell")
 
 ;; Auctex config
 (setenv "PATH" (concat "/Library/TeX/texbin;/usr/local/bin:" (getenv "PATH")))
@@ -220,3 +221,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+;; change alarm bell to be only in the mode line
+(setq ring-bell-function 'ignore)
+(setq visible-bell nil
+      ring-bell-function 'flash-mode-line)
+(defun flash-mode-line ()
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil #'invert-face 'mode-line))
+

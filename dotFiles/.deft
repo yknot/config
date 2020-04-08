@@ -10,7 +10,7 @@
       (tool-bar-mode -1) ;; turn toolbar off
       (scroll-bar-mode -1)   ;; no scroll bar
       (set-frame-height (selected-frame) 50) ;; window size
-      (set-frame-width (selected-frame) 120)
+      (set-frame-width (selected-frame) 80)
       ;; theme
       (set-frame-font "IBM Plex Mono Medium" nil t)
       (add-to-list 'load-path "~/.emacs.d/powerline/")
@@ -25,6 +25,7 @@
 (setq deft-directory "~/Dropbox/Apps/Notes/")
 (global-set-key [f6] 'deft)
 (setq deft-use-filename-as-title t)
+(setq deft-markdown-mode-title-level 1)
 (setq deft-recursive t)
 (setq deft-recursive-ignore-dir-regexp "Archive")
 (setq deft-recursive-ignore-dir-regexp
@@ -45,9 +46,16 @@
 ;; move autosaves to a default directory in the home folder
 (setq backup-directory-alist `(("." . "~/.saves")))
 
+;; interactively do things
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(setq ido-ignore-extensions t)
+(ido-mode 1)
+
 (deft)
 
-(load-theme 'leuven)
+;;(load-theme 'dichromacy)
+(load-theme 'misterioso)
 
 ;; remove status bar
 (setq-default mode-line-format nil)
