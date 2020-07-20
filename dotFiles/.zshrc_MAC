@@ -165,18 +165,13 @@ function peek() {
 
 
 # Query commands
-alias q="ls | grep --color -i"
-alias Q="ls | grep --color"
-alias qq="find . -not -type d | xargs grep --color -i"
-alias QQ="find . -not -type d | xargs grep --color"
+alias q="tree -f | ack --color -i"
+alias Q="tree -f | ack --color"
+alias qq="ack -i"
+alias QQ="ack --color"
 
 alias h='< ~/.zhistory grep -i'
 alias H='< ~/.zhistory grep'
-
-alias g='grep -i'
-alias G='grep'
-
-
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
